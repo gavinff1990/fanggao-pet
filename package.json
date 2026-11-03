@@ -2,6 +2,12 @@
   "name": "@local/fanggao-pet",
   "version": "1.0.0",
   "private": true,
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gavinff1990/fanggao-pet.git"
+  },
+  "homepage": "https://github.com/gavinff1990/fanggao-pet",
   "type": "module",
   "exports": {
     ".": "./index.js",

@@ -60,6 +60,13 @@ fanggao-pet/
 - **拖拽记忆**：`STORE_KEY`（默认 `fanggao-pet.position`）。
 - **默认位置**：`defaultPos()`（默认右下角）。
 
+## FAQ / 排错
+
+- **页面看不到方糕？** 确认插件已启用，且当前在主界面；它是 `shell.overlay` 条目，打开任意会话即可看到。
+- **拖动没反应？** 指针要落在方糕本体上；它只占约 88×88 的区域，其余浮层区域是 click-through。
+- **状态不切换？** 需要一个打开的会话；没有会话时默认显示睡觉。
+- **想重置位置？** 清除 `localStorage` 键 `fanggao-pet.position` 后刷新。
+
 ## 许可
 
-未附带开源协议。若需公开分发，建议补充 `LICENSE`（如 MIT）。
+MIT，见 [LICENSE](LICENSE)。

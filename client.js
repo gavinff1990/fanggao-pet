@@ -31,14 +31,16 @@ window.__ModuleLoader__.load({
       '.fgp-leg{transform-box:fill-box;transform-origin:50% 0%;}',
       '.fgp-leg--front{animation:fgp-swing-front .5s ease-in-out infinite;}',
       '.fgp-leg--back{animation:fgp-swing-back .5s ease-in-out infinite;}',
-      '@keyframes fgp-swing-front{0%,100%{transform:rotate(24deg)}50%{transform:rotate(-24deg)}}',
-      '@keyframes fgp-swing-back{0%,100%{transform:rotate(-24deg)}50%{transform:rotate(24deg)}}',
+      '@keyframes fgp-swing-front{0%,100%{transform:rotate(36deg)}50%{transform:rotate(-36deg)}}',
+      '@keyframes fgp-swing-back{0%,100%{transform:rotate(-36deg)}50%{transform:rotate(36deg)}}',
       '.fgp-arm{transform-box:fill-box;transform-origin:50% 0%;}',
       '.fgp-arm--left{animation:fgp-arm-left .5s ease-in-out infinite;}',
       '.fgp-arm--right{animation:fgp-arm-right .5s ease-in-out infinite;}',
-      '@keyframes fgp-arm-left{0%,100%{transform:rotate(-28deg)}50%{transform:rotate(28deg)}}',
-      '@keyframes fgp-arm-right{0%,100%{transform:rotate(28deg)}50%{transform:rotate(-28deg)}}',
+      '@keyframes fgp-arm-left{0%,100%{transform:rotate(-44deg)}50%{transform:rotate(44deg)}}',
+      '@keyframes fgp-arm-right{0%,100%{transform:rotate(44deg)}50%{transform:rotate(-44deg)}}',
       '.fgp-speed{animation:fgp-speed .5s ease-in-out infinite;}',
+      '.fgp-dust{animation:fgp-dust .5s ease-out infinite;transform-box:fill-box;transform-origin:center;}',
+      '@keyframes fgp-dust{0%{opacity:.9;transform:translateX(0) scale(.6)}100%{opacity:0;transform:translateX(-10px) scale(1.4)}}',
       '@keyframes fgp-speed{0%{opacity:0;transform:translateX(8px)}55%{opacity:.85}100%{opacity:0;transform:translateX(-6px)}}',
       '.fgp-z{animation:fgp-z 1.7s ease-in-out infinite;}',
       '.fgp-z--2{animation-delay:.55s;}',
@@ -91,8 +93,28 @@ window.__ModuleLoader__.load({
           h('circle', { cx: 0, cy: 16, r: 5, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 })));
     }
 
-    function eye(cx, cy, r) {
-      return h('g', {},
+    // Running leg: a longer capsule + a big forward foot, hinged at the hip.
+    // The invisible bar centers the group's bbox on the hip so the CSS swing
+    // pivots exactly there.
+    function runningLeg(hipX, hipY, which) {
+      return h('g', { transform: `translate(${hipX},${hipY})` },
+        h('g', { className: `fgp-leg fgp-leg--${which}` },
+          h('rect', { x: -16, y: 0, width: 32, height: 1, fill: 'none' }),
+          h('rect', { x: -5, y: 0, width: 10, height: 20, rx: 5, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 }),
+          h('ellipse', { cx: 4, cy: 20, rx: 7.5, ry: 5, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 })));
+    }
+
+    // Running arm: upper arm + bent forearm + mitten, hinged at the shoulder.
+    function runningArm(shoulderX, shoulderY, which) {
+      return h('g', { transform: `translate(${shoulderX},${shoulderY})` },
+        h('g', { className: `fgp-arm fgp-arm--${which}` },
+          h('rect', { x: -18, y: 0, width: 36, height: 1, fill: 'none' }),
+          h('rect', { x: -4, y: 0, width: 8, height: 11, rx: 4, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 }),
+          h('rect', { x: -2, y: 8, width: 10, height: 9, rx: 4, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 }),
+          h('circle', { cx: 8, cy: 13, r: 5, fill: COLORS.limb, stroke: COLORS.limbStroke, strokeWidth: 2 })));
+    }
+
+    function eye(cx, cy, r) {      return h('g', {},
         h('circle', { cx, cy, r, fill: COLORS.eye }),
         h('circle', { cx: cx + 1.3, cy: cy - 1.3, r: r * 0.32, fill: '#ffffff' }));
     }
@@ -116,24 +138,30 @@ window.__ModuleLoader__.load({
     // --- Running pose ---------------------------------------------------------
     function runningPose() {
       return [
-        shadow(80, 144, 30, 6),
-        leg(96, 120, 'back'),
-        leg(64, 120, 'front'),
-        h('rect', { x: 44, y: 52, width: 72, height: 72, rx: 16, fill: COLORS.body, stroke: COLORS.bodyStroke, strokeWidth: 2.5 }),
-        crust(true),
-        sideArm(42, 88, 'left', true),
-        sideArm(118, 88, 'right', true),
-        h('line', { x1: 62, y1: 83, x2: 70, y2: 85, stroke: COLORS.eye, strokeWidth: 2.5, strokeLinecap: 'round' }),
-        h('line', { x1: 98, y1: 83, x2: 90, y2: 85, stroke: COLORS.eye, strokeWidth: 2.5, strokeLinecap: 'round' }),
-        eye(68, 94, 5),
-        eye(92, 94, 5),
-        blush(58, 102, 6, 4, false),
-        blush(102, 102, 6, 4, false),
-        h('path', { d: 'M73 105 Q80 113 87 105 Z', fill: COLORS.mouth }),
+        shadow(80, 150, 32, 6),
+        runningLeg(94, 116, 'back'),
+        runningLeg(66, 116, 'front'),
+        // Forward lean: the torso (body, arms, face) tilts into the run.
+        h('g', { className: 'fgp-torso', transform: 'rotate(12 80 126)' },
+          h('rect', { x: 44, y: 52, width: 72, height: 72, rx: 16, fill: COLORS.body, stroke: COLORS.bodyStroke, strokeWidth: 2.5 }),
+          crust(true),
+          runningArm(44, 86, 'left'),
+          runningArm(116, 86, 'right'),
+          h('line', { x1: 62, y1: 83, x2: 70, y2: 85, stroke: COLORS.eye, strokeWidth: 2.5, strokeLinecap: 'round' }),
+          h('line', { x1: 98, y1: 83, x2: 90, y2: 85, stroke: COLORS.eye, strokeWidth: 2.5, strokeLinecap: 'round' }),
+          eye(68, 94, 5),
+          eye(92, 94, 5),
+          blush(58, 102, 6, 4, false),
+          blush(102, 102, 6, 4, false),
+          h('path', { d: 'M73 105 Q80 113 87 105 Z', fill: COLORS.mouth })),
         h('g', { className: 'fgp-speed', stroke: '#C9A15C', strokeWidth: 3.5, strokeLinecap: 'round' },
-          h('line', { x1: 22, y1: 96, x2: 33, y2: 96 }),
-          h('line', { x1: 14, y1: 108, x2: 27, y2: 108 }),
-          h('line', { x1: 24, y1: 84, x2: 33, y2: 84 })),
+          h('line', { x1: 18, y1: 92, x2: 30, y2: 92 }),
+          h('line', { x1: 12, y1: 104, x2: 26, y2: 104 }),
+          h('line', { x1: 20, y1: 80, x2: 30, y2: 80 })),
+        h('g', { className: 'fgp-dust', fill: '#D9C49A' },
+          h('circle', { cx: 40, cy: 144, r: 3.5 }),
+          h('circle', { cx: 28, cy: 140, r: 2.5 }),
+          h('circle', { cx: 34, cy: 148, r: 2 })),
       ];
     }
 
@@ -219,10 +247,26 @@ window.__ModuleLoader__.load({
       return Math.min(max, Math.max(min, v));
     }
 
+    function viewportSize() {
+      const w = (typeof window !== 'undefined' ? window.innerWidth : 900) || 900;
+      const hgt = (typeof window !== 'undefined' ? window.innerHeight : 700) || 700;
+      return { w, hgt };
+    }
+
     function defaultPos() {
-      const w = typeof window !== 'undefined' ? window.innerWidth : 900;
-      const hgt = typeof window !== 'undefined' ? window.innerHeight : 700;
+      const { w, hgt } = viewportSize();
       return { x: Math.max(8, w - 124), y: Math.max(8, hgt - 140) };
+    }
+
+    // Keep the pet fully inside the viewport: a position saved on a larger
+    // window (or before a resize) must never leave it invisible off-screen.
+    function clampToViewport(p) {
+      const { w, hgt } = viewportSize();
+      if (p.x < -32 || p.y < -32 || p.x > w || p.y > hgt) return defaultPos();
+      return {
+        x: clamp(p.x, 0, Math.max(0, w - 96)),
+        y: clamp(p.y, 0, Math.max(0, hgt - 96)),
+      };
     }
 
     function loadPos() {
@@ -232,16 +276,36 @@ window.__ModuleLoader__.load({
         if (raw) {
           const p = JSON.parse(raw);
           if (typeof p.x === 'number' && typeof p.y === 'number' && Number.isFinite(p.x) && Number.isFinite(p.y)) {
-            return { x: p.x, y: p.y };
+            return clampToViewport({ x: p.x, y: p.y });
           }
         }
       } catch (_e) { /* ignore */ }
-      return defaultPos();
+      return clampToViewport(defaultPos());
     }
 
     function savePos(p) {
       try {
         if (typeof window !== 'undefined') window.localStorage.setItem(STORE_KEY, JSON.stringify(p));
+      } catch (_e) { /* ignore */ }
+    }
+
+    const ROT_KEY = 'fanggao-pet.rotation';
+
+    function loadAngle() {
+      try {
+        if (typeof window === 'undefined') return 0;
+        const raw = window.localStorage.getItem(ROT_KEY);
+        if (raw !== null) {
+          const a = Number(raw);
+          if (Number.isFinite(a)) return a;
+        }
+      } catch (_e) { /* ignore */ }
+      return 0;
+    }
+
+    function saveAngle(a) {
+      try {
+        if (typeof window !== 'undefined') window.localStorage.setItem(ROT_KEY, String(a));
       } catch (_e) { /* ignore */ }
     }
 
@@ -278,40 +342,81 @@ window.__ModuleLoader__.load({
           const [pos, setPos] = React.useState(loadPos);
           const posRef = React.useRef(pos);
           posRef.current = pos;
-          const dragRef = React.useRef(null);
 
+          const [angle, setAngle] = React.useState(loadAngle);
+          const angleRef = React.useRef(angle);
+          angleRef.current = angle;
+
+          const modeRef = React.useRef(null); // 'move' | 'rotate'
+          const dragRef = React.useRef(null);
+          const rotRef = React.useRef(null);
+
+          // Re-clamp after a window resize so the pet never ends up off-screen.
+          React.useEffect(() => {
+            if (typeof window === 'undefined') return undefined;
+            const onResize = () => setPos((p) => clampToViewport(p));
+            window.addEventListener('resize', onResize);
+            return () => window.removeEventListener('resize', onResize);
+          }, []);
+
+          // The pet is 88x88 at (pos.x, pos.y); rotation pivots on its center.
+          function pointerAngle(e) {
+            const cx = posRef.current.x + 44;
+            const cy = posRef.current.y + 44;
+            return Math.atan2(e.clientY - cy, e.clientX - cx) * 180 / Math.PI;
+          }
           function onPointerDown(e) {
-            if (e.button !== 0) return;
-            dragRef.current = { sx: e.clientX, sy: e.clientY, ox: posRef.current.x, oy: posRef.current.y };
+            const rotate = e.button === 2 || e.shiftKey || e.altKey || e.metaKey;
+            if (!rotate && e.button !== 0) return;
+            modeRef.current = rotate ? 'rotate' : 'move';
+            if (rotate) {
+              rotRef.current = { start: pointerAngle(e), base: angleRef.current };
+            } else {
+              dragRef.current = { sx: e.clientX, sy: e.clientY, ox: posRef.current.x, oy: posRef.current.y };
+            }
             try { e.currentTarget.setPointerCapture(e.pointerId); } catch (_e) { /* ignore */ }
+            e.preventDefault();
           }
           function onPointerMove(e) {
+            if (modeRef.current === 'rotate') {
+              const r = rotRef.current;
+              if (!r) return;
+              const next = r.base + (pointerAngle(e) - r.start);
+              angleRef.current = next;
+              setAngle(next);
+              return;
+            }
+            if (modeRef.current !== 'move') return;
             const d = dragRef.current;
             if (!d) return;
-            const w = typeof window !== 'undefined' ? window.innerWidth : 900;
-            const hgt = typeof window !== 'undefined' ? window.innerHeight : 700;
+            const w = (typeof window !== 'undefined' ? window.innerWidth : 900) || 900;
+            const hgt = (typeof window !== 'undefined' ? window.innerHeight : 700) || 700;
             const next = {
-              x: clamp(d.ox + e.clientX - d.sx, 0, w - 60),
-              y: clamp(d.oy + e.clientY - d.sy, 0, hgt - 60),
+              x: clamp(d.ox + e.clientX - d.sx, 0, Math.max(0, w - 60)),
+              y: clamp(d.oy + e.clientY - d.sy, 0, Math.max(0, hgt - 60)),
             };
             posRef.current = next;
             setPos(next);
           }
           function endDrag() {
+            if (modeRef.current === 'rotate') saveAngle(angleRef.current);
+            else if (modeRef.current === 'move') savePos(posRef.current);
+            modeRef.current = null;
             dragRef.current = null;
-            savePos(posRef.current);
+            rotRef.current = null;
           }
 
           return h('div', {
             className: 'fgp-root',
-            style: { left: pos.x, top: pos.y },
+            style: { left: pos.x, top: pos.y, transform: `rotate(${angle}deg)` },
             onPointerDown,
             onPointerMove,
             onPointerUp: endDrag,
             onPointerCancel: endDrag,
+            onContextMenu: (e) => e.preventDefault(),
             role: 'img',
             'aria-label': 'Fanggao Pet 方糕萌宠',
-            title: '拖动我 · Drag me',
+            title: '拖动移动 · 右键/Shift 拖动旋转',
           },
             h('style', { dangerouslySetInnerHTML: { __html: CSS } }),
             h('div', { className: `fgp-anim fgp-anim--${pose}` }, svgEl(pose)));

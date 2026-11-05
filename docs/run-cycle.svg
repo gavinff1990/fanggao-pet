@@ -1,0 +1,111 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 160" width="640" height="320">
+  <rect width="320" height="160" fill="#ffffff"/>
+
+  <!-- ===== Frame A: front leg forward, right arm forward ===== -->
+  <g transform="translate(0,0)">
+    <ellipse cx="80" cy="150" rx="32" ry="6" fill="rgba(80,60,30,0.10)"/>
+    <!-- back leg (swung back) -->
+    <g transform="translate(94,116)"><g transform="rotate(36 0 0)">
+      <rect x="-16" y="0" width="32" height="1" fill="none"/>
+      <rect x="-5" y="0" width="10" height="20" rx="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      <ellipse cx="4" cy="20" rx="7.5" ry="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+    </g></g>
+    <!-- front leg (swung forward) -->
+    <g transform="translate(66,116)"><g transform="rotate(-36 0 0)">
+      <rect x="-16" y="0" width="32" height="1" fill="none"/>
+      <rect x="-5" y="0" width="10" height="20" rx="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      <ellipse cx="4" cy="20" rx="7.5" ry="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+    </g></g>
+    <!-- torso leaned forward -->
+    <g transform="rotate(12 80 126)">
+      <rect x="44" y="52" width="72" height="72" rx="16" fill="#FBEBC7" stroke="#D7AE77" stroke-width="2.5"/>
+      <rect x="46" y="54" width="68" height="12" rx="6" fill="#F3DCA6"/>
+      <ellipse cx="110" cy="58" rx="5.5" ry="2.6" fill="#7FB069" transform="rotate(-24 110 58)"/>
+      <circle cx="118" cy="61" r="5" fill="#E8564F"/>
+      <!-- left arm (back) -->
+      <g transform="translate(44,86)"><g transform="rotate(44 0 0)">
+        <rect x="-18" y="0" width="36" height="1" fill="none"/>
+        <rect x="-4" y="0" width="8" height="11" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <rect x="-2" y="8" width="10" height="9" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <circle cx="8" cy="13" r="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      </g></g>
+      <!-- right arm (forward) -->
+      <g transform="translate(116,86)"><g transform="rotate(-44 0 0)">
+        <rect x="-18" y="0" width="36" height="1" fill="none"/>
+        <rect x="-4" y="0" width="8" height="11" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <rect x="-2" y="8" width="10" height="9" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <circle cx="8" cy="13" r="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      </g></g>
+      <!-- face -->
+      <line x1="62" y1="83" x2="70" y2="85" stroke="#5A4632" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="98" y1="83" x2="90" y2="85" stroke="#5A4632" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="68" cy="94" r="5" fill="#5A4632"/><circle cx="69.3" cy="92.7" r="1.6" fill="#fff"/>
+      <circle cx="92" cy="94" r="5" fill="#5A4632"/><circle cx="93.3" cy="92.7" r="1.6" fill="#fff"/>
+      <ellipse cx="58" cy="102" rx="6" ry="4" fill="#F2A79C"/>
+      <ellipse cx="102" cy="102" rx="6" ry="4" fill="#F2A79C"/>
+      <path d="M73 105 Q80 113 87 105 Z" fill="#7A4A3B"/>
+    </g>
+    <!-- speed lines -->
+    <g stroke="#C9A15C" stroke-width="3.5" stroke-linecap="round">
+      <line x1="18" y1="92" x2="30" y2="92"/>
+      <line x1="12" y1="104" x2="26" y2="104"/>
+      <line x1="20" y1="80" x2="30" y2="80"/>
+    </g>
+    <!-- dust -->
+    <g fill="#D9C49A">
+      <circle cx="40" cy="144" r="3.5"/>
+      <circle cx="28" cy="140" r="2.5"/>
+      <circle cx="34" cy="148" r="2"/>
+    </g>
+  </g>
+
+  <!-- ===== Frame B: legs crossed the other way ===== -->
+  <g transform="translate(160,0)">
+    <ellipse cx="80" cy="150" rx="32" ry="6" fill="rgba(80,60,30,0.10)"/>
+    <g transform="translate(94,116)"><g transform="rotate(-36 0 0)">
+      <rect x="-16" y="0" width="32" height="1" fill="none"/>
+      <rect x="-5" y="0" width="10" height="20" rx="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      <ellipse cx="4" cy="20" rx="7.5" ry="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+    </g></g>
+    <g transform="translate(66,116)"><g transform="rotate(36 0 0)">
+      <rect x="-16" y="0" width="32" height="1" fill="none"/>
+      <rect x="-5" y="0" width="10" height="20" rx="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      <ellipse cx="4" cy="20" rx="7.5" ry="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+    </g></g>
+    <g transform="rotate(12 80 126)">
+      <rect x="44" y="52" width="72" height="72" rx="16" fill="#FBEBC7" stroke="#D7AE77" stroke-width="2.5"/>
+      <rect x="46" y="54" width="68" height="12" rx="6" fill="#F3DCA6"/>
+      <ellipse cx="110" cy="58" rx="5.5" ry="2.6" fill="#7FB069" transform="rotate(-24 110 58)"/>
+      <circle cx="118" cy="61" r="5" fill="#E8564F"/>
+      <g transform="translate(44,86)"><g transform="rotate(-44 0 0)">
+        <rect x="-18" y="0" width="36" height="1" fill="none"/>
+        <rect x="-4" y="0" width="8" height="11" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <rect x="-2" y="8" width="10" height="9" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <circle cx="8" cy="13" r="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      </g></g>
+      <g transform="translate(116,86)"><g transform="rotate(44 0 0)">
+        <rect x="-18" y="0" width="36" height="1" fill="none"/>
+        <rect x="-4" y="0" width="8" height="11" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <rect x="-2" y="8" width="10" height="9" rx="4" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+        <circle cx="8" cy="13" r="5" fill="#F6DFA8" stroke="#D7AE77" stroke-width="2"/>
+      </g></g>
+      <line x1="62" y1="83" x2="70" y2="85" stroke="#5A4632" stroke-width="2.5" stroke-linecap="round"/>
+      <line x1="98" y1="83" x2="90" y2="85" stroke="#5A4632" stroke-width="2.5" stroke-linecap="round"/>
+      <circle cx="68" cy="94" r="5" fill="#5A4632"/><circle cx="69.3" cy="92.7" r="1.6" fill="#fff"/>
+      <circle cx="92" cy="94" r="5" fill="#5A4632"/><circle cx="93.3" cy="92.7" r="1.6" fill="#fff"/>
+      <ellipse cx="58" cy="102" rx="6" ry="4" fill="#F2A79C"/>
+      <ellipse cx="102" cy="102" rx="6" ry="4" fill="#F2A79C"/>
+      <path d="M73 105 Q80 113 87 105 Z" fill="#7A4A3B"/>
+    </g>
+    <g stroke="#C9A15C" stroke-width="3.5" stroke-linecap="round">
+      <line x1="18" y1="92" x2="30" y2="92"/>
+      <line x1="12" y1="104" x2="26" y2="104"/>
+      <line x1="20" y1="80" x2="30" y2="80"/>
+    </g>
+    <g fill="#D9C49A">
+      <circle cx="40" cy="144" r="3.5"/>
+      <circle cx="28" cy="140" r="2.5"/>
+      <circle cx="34" cy="148" r="2"/>
+    </g>
+  </g>
+</svg>

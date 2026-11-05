@@ -32,6 +32,17 @@
 
 > 安装/卸载时插件管理器会重新链接该 bundle；修改 `client.js` 后重新安装即可热加载。
 
+## 更新
+
+改完代码后，一条命令完成校验 + 刷新本地链接：
+
+```bash
+./scripts/update.sh          # 校验 + 提示重装
+./scripts/update.sh --push   # 额外提交并推送到 GitHub
+```
+
+脚本会提示你在 **设置 → 插件 → 方糕萌宠 → 重新安装**，然后 `Cmd + R` 刷新页面。
+
 ## 工作原理
 
 - **Host 半**（`index.js`）无需逻辑，只负责注册 bundle。
@@ -48,10 +59,11 @@ fanggao-pet/
 ├── package.json        # bundle 清单（dsh.bundle.patch + dsh.client）
 ├── cordis.patch.yml    # 插入 fanggao-pet 插件行
 ├── index.js            # Host 半（空 apply）
-├── client.js           # Client 半：SVG 萌宠 + 状态 + 拖拽
+├── client.js           # Client 半：SVG 萌宠 + 状态 + 拖拽/旋转
 ├── icon.svg            # 插件管理器中显示的图标
 ├── locale/{en,zh}.json # 插件标题/描述
-└── docs/preview.png    # 形态预览
+├── scripts/            # validate.mjs（校验）、update.sh（一键更新）
+└── docs/               # 形态预览与跑步循环图
 ```
 
 ## 自定义
